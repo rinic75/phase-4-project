@@ -1,0 +1,47 @@
+.home-container {
+  padding: 20px;
+}
+
+.golfpros-list {
+  list-style: none;
+  padding: 0;
+}
+
+.golfpro-item {
+  margin-bottom: 20px;
+}
+
+.golfpro-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.golfpro-box h4 {
+  margin: 0;
+}
+
+.modal-container {
+  position: relative;
+}
+
+.modal-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 300px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the background color and opacity as desired */
+  z-index: -1;
+}
