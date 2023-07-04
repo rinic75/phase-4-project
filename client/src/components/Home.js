@@ -1,14 +1,24 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/Home.css'
 
-function Home({ login, golfpros }) {
+function Home({ login }) {
   const navigate = useNavigate();
   const [selectedGolfProId, setSelectedGolfProId] = useState(null);
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
   const [errors, setErrors] = useState([]);
+  const [golfpros, setGolfpros] = useState([]);
+
+  useEffect(() => {
+    fetch("/golfpros").then((res) => {
+      if (res.ok) {
+        return res.json().then((golfpros) => setGolfpros(golfpros));
+      }
+    });
+  }, []);
+
 
   function handleClick(golfproId) {
     setSelectedGolfProId(golfproId);

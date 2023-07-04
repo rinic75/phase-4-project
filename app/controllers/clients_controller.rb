@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :authorize, only: [:create, :destroy]
+  # before_action :authorize, only: [:me, :myappointments, :update, :destroy]
 
   def index
     clients = Client.all

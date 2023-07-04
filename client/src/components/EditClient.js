@@ -54,7 +54,7 @@ function EditClient({ login }) {
     }).then((r) => {
       if (r.ok) {
         alert("Account deleted successfully");
-        window.location.reload();
+        navigate(`/`);
       }
     });
   }

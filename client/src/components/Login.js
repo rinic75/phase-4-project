@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import '../css/Login.css'
 
 function Login({ onLogin }) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -19,11 +21,13 @@ function Login({ onLogin }) {
       .then((r) => {
         if (r.ok) {
           r.json().then((user) => onLogin(user));
+          navigate("/home");
         } else {
           r.json().then((err) => {
             setErrors(err.errors);
             setEmail("");
             setPassword("");
+            navigate("/");
           });
         }
       });

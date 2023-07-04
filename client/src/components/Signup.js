@@ -24,9 +24,10 @@ function Signup({ onLogin }) {
       .then((r) => {
         if (r.ok) {
           r.json().then((user) => onLogin(user));
-          navigate("/");
+          navigate("/home");
         } else {
           r.json().then((err) => setErrors(err.errors));
+          navigate("/");
         }
       });
   }
