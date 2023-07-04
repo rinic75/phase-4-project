@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext} from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../css/NavBar.css";
+import UserContext from "../UserContext";
 
-function NavBar({ login, onLogin }) {
+
+function NavBar({ onLogin }) {
   const navigate = useNavigate();
+  const login = useContext(UserContext);
 
   const handleLogout = () => {
     fetch("/logout", {

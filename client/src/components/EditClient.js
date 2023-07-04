@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/EditClient.css";
+import UserContext from "../UserContext";
 
-function EditClient({ login }) {
+function EditClient() {
+
+  const login = useContext(UserContext);
+
+  console.log(login);
 
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  // useEffect(() => {
-  //   fetch(`/clients/${login.id}`).then((res) => {
-  //     if (res.ok) {
-  //       return res.json().then((client) => setClient(client));
-  //     }
-  //   });
-  // }, [login.id]);
 
   function handleSubmit(e) {
     e.preventDefault();

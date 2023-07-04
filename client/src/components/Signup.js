@@ -27,7 +27,6 @@ function Signup({ onLogin }) {
           navigate("/home");
         } else {
           r.json().then((err) => setErrors(err.errors));
-          navigate("/");
         }
       });
   }
@@ -41,6 +40,8 @@ function Signup({ onLogin }) {
             {err}
           </p>
         ))}
+      {/* <button className="error-button" onClick={() => navigate("/")}>Back</button> */}
+      <button className="error-button" onClick={() => window.location.href = "/"}>Back</button>
       </div>
     );
   }

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/Home.css'
+import UserContext from "../UserContext";
 
-function Home({ login }) {
+function Home() {
+  const login = useContext(UserContext);
   const navigate = useNavigate();
   const [selectedGolfProId, setSelectedGolfProId] = useState(null);
   const [time, setTime] = useState("");

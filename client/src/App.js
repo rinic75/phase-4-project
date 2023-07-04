@@ -1,41 +1,44 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import './App.css';
-import {Routes, Route} from 'react-router-dom'
-import NavBar from './components/NavBar';
-import Home from './components/Home';
-import MyAppointment from './components/MyAppointment';
-import EditAppointment from './components/EditAppointment';
-import EditClient from './components/EditClient';
-import Frontpage from './components/Frontpage';
+import React from "react";
+import { useState, useEffect } from "react";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Home from "./components/Home";
+import MyAppointment from "./components/MyAppointment";
+import EditAppointment from "./components/EditAppointment";
+import EditClient from "./components/EditClient";
+import Frontpage from "./components/Frontpage";
+import UserContext from "./UserContext";
 
 function App() {
-  
   const [login, onLogin] = useState(null);
 
   useEffect(() => {
-    fetch('/me')
-      .then(res => {
-        if(res.ok) {
-          return res.json().then(user => onLogin(user));
-        }
-      });
+    fetch("/me").then((res) => {
+      if (res.ok) {
+        return res.json().then((user) => onLogin(user));
+      }
+    });
   }, []);
-
-  
 
   return (
     <>
-      <NavBar login={login} onLogin={onLogin} />
-      <div className="App">
-      <Routes>
-        <Route path="/" element={<Frontpage onLogin={onLogin} />} />
-        <Route path="/home" element={<Home login={login} />} />
-        <Route path="/myappointments" element={<MyAppointment login={login} />} />
-        <Route path="/appointments/:id" element={<EditAppointment />} />
-        <Route path="/clients/:id" element={<EditClient login={login} />} />
-      </Routes>
-    </div>
+      <UserContext.Provider value={login}>
+        <NavBar onLogin={onLogin} />
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Frontpage onLogin={onLogin} />} />
+            <Route path="/home" element={<Home login={login} />} />
+            <Route
+              path="/myappointments"
+              element={<MyAppointment />}
+            />
+            <Route path="/appointments/:id" element={<EditAppointment />} />
+            <Route path="/clients/:id" element={<EditClient />} />
+          </Routes>
+        </div>
+      </UserContext.Provider>
+      
       <style>{`
       .container {
         max-width: 600px;
@@ -65,5 +68,3 @@ function App() {
 }
 
 export default App;
-
-
