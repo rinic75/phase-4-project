@@ -12,6 +12,7 @@ import UserContext from "./UserContext";
 
 function App() {
   const [login, onLogin] = useState(null);
+  const [golfpros, setGolfpros] = useState([])
 
   useEffect(() => {
     fetch("/me").then((res) => {
@@ -21,6 +22,21 @@ function App() {
     });
   }, []);
 
+  function editedAppointment(appointment) {
+    const updatedAppointments = login.appointments.map((a) => {
+      if (a.id === appointment.id) {
+        return appointment;
+      } else {
+        return a;
+      }
+    });
+    onLogin({ ...login, appointments: updatedAppointments });
+  }
+
+  function golfprosInfo(golfprosInfo) {
+    setGolfpros(golfprosInfo)
+  }
+
   return (
     <>
       <UserContext.Provider value={login}>
@@ -28,12 +44,14 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<Frontpage onLogin={onLogin} />} />
-            <Route path="/home" element={<Home login={login} />} />
+            <Route path="/home" element={<Home login={login} golfprosInfo={golfprosInfo}/>} />
             <Route
               path="/myappointments"
               element={<MyAppointment />}
             />
-            <Route path="/appointments/:id" element={<EditAppointment />} />
+            <Route 
+              path="/appointments/:id" 
+              element={<EditAppointment editedAppointment={editedAppointment} golfpros={golfpros}/>} />
             <Route path="/clients/:id" element={<EditClient />} />
           </Routes>
         </div>

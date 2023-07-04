@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../css/EditAppointment.css";
 
-function EditAppointment({ golfpros }) {
-  const [appointment, setAppointment] = useState([]);
+function EditAppointment({ golfpros, editedAppointment }) {
+  const [appointment, setAppointment] = useState({
+    golfpro_id: "",
+    client_id: "",
+    time: "",
+    lesson_info: "",
+  });
   const [selectedGolfPro, setSelectedGolfPro] = useState("");
   const { id } = useParams();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`/appointments/${id}`).then((res) => {
@@ -34,9 +39,15 @@ function EditAppointment({ golfpros }) {
     }).then((r) => {
       if (r.ok) {
         return r.json().then((appointment) => {
-          setAppointment(appointment);
-          navigate(`/myappointments`);
+          editedAppointment(appointment);
+          // navigate("/myappointments");
         });
+      }
+      else {
+        r.json().then((err) => {
+          console.log(err);
+        }
+      );
       }
     });
   }
@@ -86,11 +97,12 @@ function EditAppointment({ golfpros }) {
           value={selectedGolfPro}
           onChange={handleSelectGolfPro}
         >
-          {golfpros.map((golfpro) => (
-            <option key={golfpro.id} value={golfpro.id}>
-              {golfpro.name}
-            </option>
-          ))}
+          {golfpros &&
+            golfpros.map((golfpro) => (
+              <option key={golfpro.id} value={golfpro.id}>
+                {golfpro.name}
+              </option>
+            ))}
         </select>
         <button type="submit">Submit</button>
       </form>

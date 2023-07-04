@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import '../css/Home.css'
 import UserContext from "../UserContext";
 
-function Home() {
+function Home({ golfprosInfo }) {
   const login = useContext(UserContext);
   const navigate = useNavigate();
   const [selectedGolfProId, setSelectedGolfProId] = useState(null);
@@ -16,7 +16,11 @@ function Home() {
   useEffect(() => {
     fetch("/golfpros").then((res) => {
       if (res.ok) {
-        return res.json().then((golfpros) => setGolfpros(golfpros));
+        return res.json().then((golfpros) => {
+          setGolfpros(golfpros)
+          golfprosInfo(golfpros)
+        }
+      );
       }
     });
   }, []);
