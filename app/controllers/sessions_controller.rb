@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_action :authorize, only: :login
   def login
     user = Client.find_by(email: params[:email])
     if user&.authenticate(params[:password])

@@ -24,7 +24,7 @@ function NavBar({ login, onLogin }) {
           <h2 className="navbar__welcome">Welcome {login.name}</h2>
           <ul className="navbar__links">
             <li>
-              <NavLink to="/" className="navbar__link">
+              <NavLink to="/home" className="navbar__link">
                 Home
               </NavLink>
             </li>

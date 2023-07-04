@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
 
+  before_action :authorize
+
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
@@ -14,7 +16,8 @@ class ApplicationController < ActionController::API
     render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
   end
 
-  def render_unathorized
-    render json: { errors: ["You must be logged in to do that"] }, status: :unauthorized
+  def authorize
+    return render json: { errors: ["Not authorized"] }, status: :unauthorized unless session.include? :client_id
   end
+
 end

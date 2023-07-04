@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  # before_action :authorize, only: [:me, :myappointments, :update, :destroy]
+  skip_before_action :authorize, only: [:create]
 
   def index
     clients = Client.all
@@ -51,8 +51,6 @@ class ClientsController < ApplicationController
   def client_params
     params.permit(:name, :email, :password)
   end
-  def authorize
-    return render json: { errors: ["Not authorized"] }, status: :unauthorized unless session.include? :client_id
-  end
+  
     
 end
