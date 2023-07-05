@@ -45,3 +45,8 @@
   background-color: rgba(0, 0, 0, 0.5); /* Adjust the background color and opacity as desired */
   z-index: -1;
 }
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Adjust the spacing as desired */
+}

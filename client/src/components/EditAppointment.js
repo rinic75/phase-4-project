@@ -11,7 +11,7 @@ function EditAppointment({ golfpros, editedAppointment }) {
   });
   const [selectedGolfPro, setSelectedGolfPro] = useState("");
   const { id } = useParams();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`/appointments/${id}`).then((res) => {
@@ -26,7 +26,6 @@ function EditAppointment({ golfpros, editedAppointment }) {
     const { time, lesson_info } = e.target;
     const formData = {
       golfpro_id: selectedGolfPro,
-      client_id: appointment.client_id,
       time: time.value,
       lesson_info: lesson_info.value,
     };
@@ -40,7 +39,7 @@ function EditAppointment({ golfpros, editedAppointment }) {
       if (r.ok) {
         return r.json().then((appointment) => {
           editedAppointment(appointment);
-          // navigate("/myappointments");
+          navigate("/myappointments");
         });
       }
       else {

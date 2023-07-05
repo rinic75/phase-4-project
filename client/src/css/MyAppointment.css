@@ -38,6 +38,7 @@
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
+  gap: 10px;
 }
 
 .edit-button:hover,

@@ -18,13 +18,13 @@ class ClientsController < ApplicationController
   end
 
   def update
-    client = Client.find(params[:id])
+    client = Client.find(id: session[:client_id])
     client.update!(client_params)
     render json: client, status: :accepted
   end
 
   def destroy
-    client = Client.find(params[:id])
+    client = Client.find(id: session[:client_id])
     client.destroy
     head :no_content
   end
@@ -34,7 +34,7 @@ class ClientsController < ApplicationController
     if user
       render json: user
     else
-      render json: { errors: ["Not authorized"] }, status: :unauthorized
+      render json: { errors: ["Not authorized"] }, status: :unauthorized 
     end
   end
 

@@ -23,7 +23,6 @@ function EditClient() {
     }
 
     const formData = {
-      client_id: login.id,
       email: login.email,
       password: newPassword,
     };

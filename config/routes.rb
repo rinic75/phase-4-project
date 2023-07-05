@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   resources :appointments, only: [:index, :show, :create, :update, :destroy]
-  resources :golfpros, only: [:index, :show]
+  resources :golfpros, only: [:index, :show, :create, :destroy]
 
   get '/clients', to: 'clients#index'
   get '/me', to: 'clients#me'

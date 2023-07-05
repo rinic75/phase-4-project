@@ -34,6 +34,18 @@ function Home({ golfprosInfo }) {
     setSelectedGolfProId(null);
   }
 
+  function handleDelete (id) {
+    fetch(`/golfpros/${id}`, {
+      method: "DELETE",
+    }).then((r) => {
+      if (r.ok) {
+        setGolfpros((prevGolfpros) =>
+          prevGolfpros.filter((golfpro) => golfpro.id !== id)
+          );
+      }
+    });
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
     const appointmentData = {
@@ -42,6 +54,7 @@ function Home({ golfprosInfo }) {
       time: time,
       lesson_info: notes,
     };
+
 
     fetch("/appointments", {
       method: "POST",
@@ -72,9 +85,14 @@ function Home({ golfprosInfo }) {
               <h4>{golfpro.name}</h4>
               <p>Bio: {golfpro.bio}</p>
               <p>Contact: {golfpro.email}</p>
-              <button onClick={() => handleClick(golfpro.id)}>
-                Make an Appointment
-              </button>
+              <div className="button-group">
+                <button onClick={() => handleClick(golfpro.id)}>
+                  Make an Appointment
+                </button>
+                <button onClick={() => handleDelete(golfpro.id)}>
+                  Delete
+                </button>
+              </div>
             </div>
             {selectedGolfProId === golfpro.id && (
               <div className="modal-container">
@@ -124,6 +142,9 @@ function Home({ golfprosInfo }) {
           </li>
         ))}
       </ul>
+      <div className="footer">
+        <button onClick={()=>navigate('/newgolfpro')}>Add a Golf Pro</button>
+      </div>
     </div>
   );
 }

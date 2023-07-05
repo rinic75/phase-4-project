@@ -7,12 +7,13 @@ import Home from "./components/Home";
 import MyAppointment from "./components/MyAppointment";
 import EditAppointment from "./components/EditAppointment";
 import EditClient from "./components/EditClient";
+import NewGolfpro from "./components/NewGolfpro";
 import Frontpage from "./components/Frontpage";
 import UserContext from "./UserContext";
 
 function App() {
   const [login, onLogin] = useState(null);
-  const [golfpros, setGolfpros] = useState([])
+  const [golfpros, setGolfpros] = useState([]);
 
   useEffect(() => {
     fetch("/me").then((res) => {
@@ -21,6 +22,7 @@ function App() {
       }
     });
   }, []);
+
 
   function editedAppointment(appointment) {
     const updatedAppointments = login.appointments.map((a) => {
@@ -44,7 +46,7 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<Frontpage onLogin={onLogin} />} />
-            <Route path="/home" element={<Home login={login} golfprosInfo={golfprosInfo}/>} />
+            <Route path="/home" element={<Home golfprosInfo={golfprosInfo}/>} />
             <Route
               path="/myappointments"
               element={<MyAppointment />}
@@ -53,6 +55,7 @@ function App() {
               path="/appointments/:id" 
               element={<EditAppointment editedAppointment={editedAppointment} golfpros={golfpros}/>} />
             <Route path="/clients/:id" element={<EditClient />} />
+            <Route path="/newgolfpro" element={<NewGolfpro />} />
           </Routes>
         </div>
       </UserContext.Provider>

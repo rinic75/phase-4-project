@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/MyAppointment.css";
 
+
 function MyAppointment() {
+
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
 
@@ -14,6 +16,8 @@ function MyAppointment() {
         }
       });
   }, []);
+
+  
 
   function handleDelete(appointmentId) {
     fetch(`/appointments/${appointmentId}`, 
@@ -28,6 +32,7 @@ function MyAppointment() {
       }
     })
   }
+  
 
   return (
     <div className="my-appointments">
@@ -35,7 +40,6 @@ function MyAppointment() {
       <ul style={{ listStyleType: "none" }}>
         {appointments.map((appointment) => (
           <li key={appointment.id} className="appointment-card">
-            <h2>{appointment.client.name}</h2>
             <h2>{appointment.golfpro.name}</h2>
             <h3>{appointment.golfpro.email}</h3>
             <h3>{appointment.time}</h3>
