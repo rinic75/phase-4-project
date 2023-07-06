@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import MyAppointment from "./components/MyAppointment";
-import EditAppointment from "./components/EditAppointment";
+// import EditAppointment from "./components/EditAppointment";
 import EditClient from "./components/EditClient";
 import NewGolfpro from "./components/NewGolfpro";
 import Frontpage from "./components/Frontpage";
@@ -24,16 +24,16 @@ function App() {
   }, []);
 
 
-  function editedAppointment(appointment) {
-    const updatedAppointments = login.appointments.map((a) => {
-      if (a.id === appointment.id) {
-        return appointment;
-      } else {
-        return a;
-      }
-    });
-    onLogin({ ...login, appointments: updatedAppointments });
-  }
+  // function editedAppointment(appointment) {
+  //   const updatedAppointments = login.appointments.map((a) => {
+  //     if (a.id === appointment.id) {
+  //       return appointment;
+  //     } else {
+  //       return a;
+  //     }
+  //   });
+  //   onLogin({ ...login, appointments: updatedAppointments });
+  // }
 
   function golfprosInfo(golfprosInfo) {
     setGolfpros(golfprosInfo)
@@ -49,11 +49,11 @@ function App() {
             <Route path="/home" element={<Home golfprosInfo={golfprosInfo}/>} />
             <Route
               path="/myappointments"
-              element={<MyAppointment />}
+              element={<MyAppointment golfpros={golfpros}/>}
             />
-            <Route 
+            {/* <Route 
               path="/appointments/:id" 
-              element={<EditAppointment editedAppointment={editedAppointment} golfpros={golfpros}/>} />
+              element={<EditAppointment editedAppointment={editedAppointment} golfpros={golfpros}/>} /> */}
             <Route path="/clients/:id" element={<EditClient />} />
             <Route path="/newgolfpro" element={<NewGolfpro />} />
           </Routes>

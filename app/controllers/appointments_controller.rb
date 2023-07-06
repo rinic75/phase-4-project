@@ -10,7 +10,7 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    client = Client.find_by(id: session[:user_id])
+    client = Client.find_by(id: session[:client_id])
     appointment = client.appointments.create!(appointment_params)
     render json: appointment, status: :created
   end
@@ -18,7 +18,7 @@ class AppointmentsController < ApplicationController
   def update
     appointment = Appointment.find(params[:id])
 
-    if appointment.client_id == session[:user_id]
+    if appointment.client_id == session[:client_id]
       appointment.update!(appointment_params)
       render json: appointment, status: :accepted
     else
@@ -29,7 +29,7 @@ class AppointmentsController < ApplicationController
   def destroy
     appointment = Appointment.find(params[:id])
 
-    if appointment.client_id == session[:user_id]
+    if appointment.client_id == session[:client_id]
       appointment.destroy
       head :no_content
     else

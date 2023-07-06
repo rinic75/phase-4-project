@@ -23,7 +23,6 @@ function EditClient() {
     }
 
     const formData = {
-      email: login.email,
       password: newPassword,
     };
 
@@ -40,6 +39,9 @@ function EditClient() {
           navigate(`/myappointments`);
 
         });
+      }
+      else {
+        r.json().then((err) => setPasswordError(err.error));
       }
     });
   }

@@ -18,13 +18,13 @@ class ClientsController < ApplicationController
   end
 
   def update
-    client = Client.find(id: session[:client_id])
+    client = Client.find_by(id: session[:client_id])
     client.update!(client_params)
     render json: client, status: :accepted
   end
 
   def destroy
-    client = Client.find(id: session[:client_id])
+    client = Client.find_by(id: session[:client_id])
     client.destroy
     head :no_content
   end

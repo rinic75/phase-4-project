@@ -45,6 +45,7 @@ function Home({ golfprosInfo }) {
       }
     });
   }
+  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -64,10 +65,20 @@ function Home({ golfprosInfo }) {
       body: JSON.stringify(appointmentData),
     }).then((r) => {
       if (r.ok) {
-        closeModal();
-        navigate("/myappointments");
+        r.json().then((appointment) => {
+          setGolfpros((prevGolfpros) =>
+            prevGolfpros.map((golfpro) =>
+              golfpro.id === selectedGolfProId
+                ? { ...golfpro, appointments: [...golfpro.appointments, appointment] }
+                : golfpro
+            )
+          );
+          closeModal();
+        });
+
       } else {
         r.json().then((err) => {
+          console.log(err);
           setErrors(err.errors);
         });
       }
