@@ -1,24 +1,27 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import EditAppointmentModal from "./EditAppointmentModal";
+import { UserContext } from "../UserContext";
 
 function MyAppointment({ golfpros }) {
-  const [appointments, setAppointments] = useState([]);
+  const {login, onLogin} = useContext(UserContext)
+  const [appointments, setAppointments] = useState(login.appointments);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    fetch("/myappointments")
-      .then((res) => {
-        if (res.ok) {
-          return res.json().then((appointments) => {
-            setAppointments(appointments);
-            setIsLoading(false);
-          });
-        }
-      });
-  }, []);
+  console.log(appointments)
+  // useEffect(() => {
+  //   fetch("/myappointments")
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         return res.json().then((appointments) => {
+  //           setAppointments(appointments);
+  //           setIsLoading(false);
+  //         });
+  //       }
+  //     });
+  // }, []);
 
   function handleDelete(appointmentId) {
     fetch(`/appointments/${appointmentId}`, {
@@ -29,6 +32,7 @@ function MyAppointment({ golfpros }) {
           setAppointments((prevAppointments) =>
             prevAppointments.filter((appointment) => appointment.id !== appointmentId)
           );
+          onLogin({...login, appointments: login.appointments.filter((appointment) => appointment.id !== appointmentId)})
         }
       });
   }
@@ -40,12 +44,16 @@ function MyAppointment({ golfpros }) {
   }
 
   function handleUpdate(updatedAppointment) {
-    setAppointments((prevAppointments) =>
-      prevAppointments.map((appointment) =>
-        appointment.id === updatedAppointment.id ? updatedAppointment : appointment
-      )
-    );
-    setShowModal(false);
+    const updatedAppointments = appointments.map((appointment) => {
+      if (appointment.id === updatedAppointment.id) {
+        return updatedAppointment;
+      } else {
+        return appointment;
+      }
+    });
+    setAppointments(updatedAppointments);
+    const updatedLogin = { ...login, appointments: updatedAppointments };
+  onLogin(updatedLogin);
   }
 
   return (
@@ -53,11 +61,11 @@ function MyAppointment({ golfpros }) {
       <h1>My Appointments</h1>
       {isLoading ? (
         <p>Loading...</p>
-      ) : appointments.length === 0 ? (
+      ) : login.appointments.length === 0 ? (
         <p>No appointments found.</p>
       ) : (
         <ul style={{ listStyleType: "none" }}>
-          {appointments.map((appointment) => (
+          {login.appointments.map((appointment) => (
             <li key={appointment.id} className="appointment-card">
               <h2>{appointment.golfpro ? appointment.golfpro.name : ""}</h2>
               <h3>{appointment.golfpro ? appointment.golfpro.email : ""}</h3>

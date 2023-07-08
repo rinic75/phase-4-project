@@ -2,12 +2,12 @@ import React, { useContext} from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../css/NavBar.css";
-import UserContext from "../UserContext";
+import {UserContext} from "../UserContext";
 
 
-function NavBar({ onLogin }) {
+function NavBar() {
   const navigate = useNavigate();
-  const login = useContext(UserContext);
+  const {login, onLogin} = useContext(UserContext)
 
   const handleLogout = () => {
     fetch("/logout", {

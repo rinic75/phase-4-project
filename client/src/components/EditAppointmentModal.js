@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
+
 function EditAppointmentModal({ appointment, onUpdate, onClose, golfpros }) {
 
   console.log(appointment);
@@ -13,15 +14,6 @@ function EditAppointmentModal({ appointment, onUpdate, onClose, golfpros }) {
       [name]: value,
     }));
   }
-
-  function handleGolfProChange(event) {
-    const { value } = event.target;
-    setUpdatedAppointment((prevAppointment) => ({
-      ...prevAppointment,
-      golfpro_id: parseInt(value)
-    }));
-  }
-  console.log(updatedAppointment);
 
 
   function handleSubmit(event) {
@@ -47,21 +39,6 @@ function EditAppointmentModal({ appointment, onUpdate, onClose, golfpros }) {
       <div className="modal-content">
         <h2>Edit Appointment</h2>
         <form onSubmit={handleSubmit}>
-          <label>
-            Golf Pro:
-            <select
-              name="golfpro_id"
-              value={updatedAppointment.golfpro_id}
-              onChange={handleGolfProChange}
-            >
-              <option value="">Select a golf pro</option>
-              {golfpros.map((golfpro) => (
-                <option key={golfpro.id} value={golfpro.id}>
-                  {golfpro.name}
-                </option>
-              ))}
-            </select>
-          </label>
           <label>
             Time:
             <input

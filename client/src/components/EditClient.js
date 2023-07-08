@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/EditClient.css";
-import UserContext from "../UserContext";
+import {UserContext} from "../UserContext";
 
 function EditClient() {
 

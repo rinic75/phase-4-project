@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/Home.css'
-import UserContext from "../UserContext";
+import {UserContext} from "../UserContext";
 
 function Home({ golfprosInfo }) {
-  const login = useContext(UserContext);
+  const { login, onLogin} = useContext(UserContext);
   const navigate = useNavigate();
   const [selectedGolfProId, setSelectedGolfProId] = useState(null);
   const [time, setTime] = useState("");
@@ -74,6 +74,8 @@ function Home({ golfprosInfo }) {
             )
           );
           closeModal();
+          const updatedLogin = { ...login, appointments: [...login.appointments, appointment] };
+        onLogin(updatedLogin); 
         });
 
       } else {

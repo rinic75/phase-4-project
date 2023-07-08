@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -9,20 +9,19 @@ import MyAppointment from "./components/MyAppointment";
 import EditClient from "./components/EditClient";
 import NewGolfpro from "./components/NewGolfpro";
 import Frontpage from "./components/Frontpage";
-import UserContext from "./UserContext";
+import {UserContext} from "./UserContext";
 
 function App() {
-  const [login, onLogin] = useState(null);
+  // const [login, onLogin] = useState(null);
   const [golfpros, setGolfpros] = useState([]);
-
-  useEffect(() => {
-    fetch("/me").then((res) => {
-      if (res.ok) {
-        return res.json().then((user) => onLogin(user));
-      }
-    });
-  }, []);
-
+  const {login, onLogin} = useContext(UserContext)
+  // useEffect(() => {
+  //   fetch("/me").then((res) => {
+  //     if (res.ok) {
+  //       return res.json().then((user) => onLogin(user));
+  //     }
+  //   });
+  // }, []);
 
   // function editedAppointment(appointment) {
   //   const updatedAppointments = login.appointments.map((a) => {
@@ -41,11 +40,11 @@ function App() {
 
   return (
     <>
-      <UserContext.Provider value={login}>
+     
         <NavBar onLogin={onLogin} />
         <div className="App">
           <Routes>
-            <Route path="/" element={<Frontpage onLogin={onLogin} />} />
+            <Route path="/" element={<Frontpage />} />
             <Route path="/home" element={<Home golfprosInfo={golfprosInfo}/>} />
             <Route
               path="/myappointments"
@@ -58,7 +57,7 @@ function App() {
             <Route path="/newgolfpro" element={<NewGolfpro />} />
           </Routes>
         </div>
-      </UserContext.Provider>
+      
       
       <style>{`
       .container {

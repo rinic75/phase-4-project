@@ -38,14 +38,14 @@ class ClientsController < ApplicationController
     end
   end
 
-  def myappointments
-    user = Client.find_by(id: session[:client_id])
-    if user
-      render json: user.appointments
-    else
-      render json: { errors: ["Not authorized"] }, status: :unauthorized
-    end
-  end
+  # def myappointments
+  #   user = Client.find_by(id: session[:client_id])
+  #   if user
+  #     render json: user.appointments
+  #   else
+  #     render json: { errors: ["Not authorized"] }, status: :unauthorized
+  #   end
+  # end
 
   private
   def client_params
